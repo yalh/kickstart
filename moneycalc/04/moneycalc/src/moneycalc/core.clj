@@ -28,11 +28,11 @@
 
 
 (defn render-rate
-  [to-symbol from-symbol]
+  [rate to-symbol from-symbol]
   [:tr
    [:td from-symbol]
    [:td to-symbol]
-   [:td (query-money-exchange-rate to-symbol from-symbol)]])
+   [:td rate]])
 
 
 (defn handler
@@ -44,7 +44,8 @@
                   [:table
                    [:thead [:tr [:th "From"] [:th "To"] [:th "Rate"]]]
                    [:body (for [t ["EUR" "USD"] f ["JPY" "AUD"]]
-                                   (render-rate t f))]]])})
+                            (if-let [rate (query-money-exchange-rate t f)]
+                              (render-rate rate t f)))]]])})
 
 
 
