@@ -7,13 +7,14 @@
 
 ;; tinker with data from Yahoo Finance web API
 
-(def response @(client/get "http://download.finance.yahoo.com/d/quotes.csv?s=USDEUR=X&f=price"))
+(def response @(client/get "http://download.finance.yahoo.com/d/quotes.csv?s=USDEUR=X&f=p"))
 (def body (slurp (:body response)))
-(def rate (first (string/split body #",")))
-rate
-(read-string rate)
+(def rate (read-string body))
 
-(def url "http://download.finance.yahoo.com/d/quotes.csv?s=%s%s=X&f=price")
+body
+rate
+
+(def url "http://download.finance.yahoo.com/d/quotes.csv?s=%s%s=X&f=p")
 
 (format url "EUR" "USD")
 

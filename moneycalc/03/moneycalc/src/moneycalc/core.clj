@@ -7,7 +7,7 @@
 
 ;; Access currency exchange rate with Yahoo Finance web API
 
-(def url "http://download.finance.yahoo.com/d/quotes.csv?s=%s%s=X&f=price")
+(def url "http://download.finance.yahoo.com/d/quotes.csv?s=%s%s=X&f=p")
 
 (defn query-money-exchange-rate
   "Returns a floating point number that represents
@@ -18,7 +18,7 @@
   (let [url       (format url to-symbol from-symbol)
         response @(client/get url)
         body      (slurp (:body response))
-        rate      (read-string (first (string/split body #",")))]
+        rate      (read-string body)]
     (if (number? rate)
       rate)))
 
